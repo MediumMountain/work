@@ -13,3 +13,21 @@ project1/
 ```
 
 
+# CMakeLists.txt の設定
+
+```
+cmake_minimum_required(VERSION 3.1)
+project(cmake_test_1 CXX)
+aadd_executable(cmake_test test1.cpp)
+```
+
+
+- cmake_minimum_required()
+  - 1行目ではこのプロジェクトで必要とするCMakeのバージョンを指定
+
+- project()
+  - 2行目ではプロジェクト名を指定
+
+- add_executable()
+  - ターゲット名が生成する実行ファイルの名前に相当
+  - 依存ファイルにはビルドに必要なソースファイルなどを指定
