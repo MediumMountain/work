@@ -13,7 +13,7 @@ project1/
 ```
 
 
-# CMakeLists.txt の設定
+## CMakeLists.txt の設定
 
 ```
 cmake_minimum_required(VERSION 3.1)
@@ -31,3 +31,24 @@ aadd_executable(cmake_test test1.cpp)
 - add_executable()
   - ターゲット名が生成する実行ファイルの名前に相当
   - 依存ファイルにはビルドに必要なソースファイルなどを指定
+
+
+  ## make用のMakefileを生成
+  - buildディレクトリに移動したあとでcmakeを実行
+
+
+
+
+# 基本的なビルド方法
+```
+$ mkdir build
+$ cd build
+$ cmake ..　
+$ make #ライブラリのビルド
+$ make examples #ライブラリを利用したサンプルをビルドしてバイナリを生成する
+```
+
+
+# REFERENCE
+https://qiita.com/Hiroya_W/items/049bfb4c6ad3dfe6ff0c
+https://izadori.net/cmake_1/
