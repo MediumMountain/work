@@ -49,6 +49,31 @@ $ make examples #ライブラリを利用したサンプルをビルドしてバ
 ```
 
 
+
+# make(Makefile)
+- CやC++のコンパイルをコマンドひとつで自動化できる
+- プログラムのビルド作業を自動化するツール。コンパイル、リンク、インストール等のルールを記述したテキストファイル (makefile) に従って、これらの作業を自動的に行う。
+
+
+
+## Makefileのメリット
+- コマンドを自由に作れる（こういうルールでビルドしたい、を自由に定義可能）
+- 変更差分だけコンパイルし直すことができ、時間短縮できる
+- チーム開発する際、Makefileを共有すれば全員でコンパイルルールを統一できる
+- 基本構造はシンプルなので、自分のテンプレートを一度作れば様々なプログラムに流用できる
+
+
+## Makefileの基本構造
+- Makefileの中で用いる変数(マクロ)の設定
+- ルールの設定
+
+
 # REFERENCE
+Cmake
 https://qiita.com/Hiroya_W/items/049bfb4c6ad3dfe6ff0c
 https://izadori.net/cmake_1/
+
+
+
+make
+https://qiita.com/mizcii/items/cfbd2aa17f6b7517c37f
