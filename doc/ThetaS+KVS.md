@@ -20,3 +20,22 @@
 
 ## 現状の問題点
 - winのgstreamerでThetaSが検出できない
+
+
+
+## libuvc
+
+
+
+
+# KVS
+
+
+
+# REFERENCE
+THETA
+https://theta360.com/ja/about/theta/s.html
+
+
+libuvcのインストールと使用方法
+https://qiita.com/okubo999/items/85de1556a51c363bda24

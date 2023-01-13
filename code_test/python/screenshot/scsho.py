@@ -6,26 +6,27 @@ import pyautogui as pag
 
 from time import sleep
 
-i = 133
+i = 1
 # savepath = 'C:/Users/my/Desktop/画像'
 # savepath ='E:/Users/haori sayami\Videos/Captures/g'
 # savepath ='E:/comic/X/test'
-savepath ='E:/comic/OP/OP'
+# savepath ='E:/comic/OP/OP'
 # savepath ='E:/comic/H/Hunt'
 # savepath ='E:/comic/REBORN'
 # savepath ='E:/comic/HERO'
-# savepath ='E:/comic/NARUTO/'
+savepath ='E:/comic/NARUTO/N/'
 # savepath ='E:/comic/DEATH_NOTE/'
 
 try:
-    while i<1300:
+    while i<4000:
         sleep(2)
         pag.click(800, 30)
         # img = pag.screenshot(savepath + '/screenshot' + str(i) + '.png')
         # img = pag.screenshot(savepath + '/Choujin_X_' + str(i) + '.png')
         # img = pag.screenshot(savepath + '/HUNTER_HUNTER_' + str(i) + '.png')
         # img = pag.screenshot(savepath + '/DEATH_NOTE' + str(i) + '.png')
-        img = pag.screenshot(savepath + '/ONE_PEACE' + str(i) + '.png')
+        # img = pag.screenshot(savepath + '/ONE_PEACE' + str(i) + '.png')
+        img = pag.screenshot(savepath + '/NARUTO' + str(i) + '.png')
         sleep(3)
         pag.click(30, 30)
         i = i + 1

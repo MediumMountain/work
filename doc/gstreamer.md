@@ -63,3 +63,19 @@ https://qiita.com/tetsukuz/items/51fdb6122a40bdd45e46
 
 パイプラインについて
 https://qiita.com/saxxos/items/e5b452502ad9aca3c997
+
+
+
+Youtubeで360度ライブストリーミングをしてライブVR体験をする方法
+https://qiita.com/f-aoyama/items/80f418c39977dbb78f5c
+https://qiita.com/alivelime/items/700e240ada5dc9deb928
+https://qiita.com/tanigox/items/3614fa6302f5b2892e2f
+
+
+RICOH THETA SのためのDualfisheyeからEquirectangularに変換を行うGstreamerプラグイン
+https://qiita.com/Otama75/items/fa7587ea60523a6ef76e
+
+
+
+関連ブログ
+https://moitkfm.blogspot.com/
