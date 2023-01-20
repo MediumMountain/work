@@ -56,6 +56,11 @@ gst-launch-1.0 videotestsrc ! autovideosink
 
 
 ## REFERENCE
+
+What is GStreamer?
+https://gstreamer.freedesktop.org/documentation/application-development/introduction/gstreamer.html?gi-language=c
+https://gstreamer.freedesktop.org/documentation/application-development/introduction/?gi-language=c
+
 https://qiita.com/kurun_pan/items/f7896d52c1a3fcc947b0
 
 GStreaemer の便利ツールたち、の簡単な説明
