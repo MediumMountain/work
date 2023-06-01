@@ -112,3 +112,17 @@
 
 ## フラグメントシェーダ
 - 頂点で囲まれた範囲のピクセル毎に呼び出され、その位置の色を出力する。
+
+
+
+# REFERENCE
+http://wisdom.sakura.ne.jp/system/opengl/index.html
+https://www.entis.jp/gls/sample/CubeTest/CubeTest.html
+
+## EGL
+https://qiita.com/y-tsutsu/items/1e88212b8532fc693c3c
+
+
+
+## C++
+https://13mzawa2.hateblo.jp/entry/2016/08/04/210552
