@@ -83,7 +83,10 @@ int LoadFile(char *filename)
 
   /* テクスチャ画像の読み込み */
   if ((fp = fopen(filename, "rb")) != NULL) {
-    n_read = fread(texture, 1, sizeof texture, fp);
+    fseek(fp, 54L, SEEK_SET);
+    // n_read = fread(texture, 1, sizeof texture, fp);
+    // n_read = fread(texture, 1, 262198, fp);
+    n_read = fread(texture, 1, 66614, fp);
     fclose(fp);
   }
 
@@ -245,6 +248,16 @@ GLuint loadShader(GLenum shaderType, const char *source)
 
 void Draw ()
 {
+//    GLfloat vVertices[] = { -1.0f,  1.0f, 0.0f,  // Position 0
+//                             0.0f,  1.0f,        // TexCoord 0 
+//                            -1.0f, -1.0f, 0.0f,  // Position 1
+//                             0.0f,  0.0f,        // TexCoord 1
+//                             1.0f, -1.0f, 0.0f,  // Position 2
+//                             1.0f,  0.0f,        // TexCoord 2
+//                             1.0f,  1.0f, 0.0f,  // Position 3
+//                             1.0f,  1.0f         // TexCoord 3
+//                          };
+
    GLfloat vVertices[] = { -1.0f,  1.0f, 0.0f,  // Position 0
                             0.0f,  1.0f,        // TexCoord 0 
                            -1.0f, -1.0f, 0.0f,  // Position 1
@@ -280,7 +293,8 @@ void Draw ()
 //    // Set the sampler texture unit to 0
 //    glUniform1i ( samplerLoc, 0 );
 
-   glDrawElements ( GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices );
+    glDrawElements ( GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices );
+    // glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
 
