@@ -83,10 +83,15 @@ int LoadFile(char *filename)
 
   /* テクスチャ画像の読み込み */
   if ((fp = fopen(filename, "rb")) != NULL) {
+    //ファイルヘッダ分、シークする。
     fseek(fp, 54L, SEEK_SET);
+
+    //動的にファイルサイズを取得できるようにする。
     // n_read = fread(texture, 1, sizeof texture, fp);
     // n_read = fread(texture, 1, 262198, fp);
-    n_read = fread(texture, 1, 66614, fp);
+    // n_read = fread(texture, 1, 66614, fp);
+    n_read = fread(texture, 1, 196662, fp);
+    
     fclose(fp);
   }
 
@@ -143,19 +148,17 @@ int initializeEGL(Display *xdisp, Window &xwindow, EGLDisplay &display, EGLConte
 
 void mainloop(Display *xdisplay, EGLDisplay display, EGLSurface surface)
 {
-
+    init();
     while (true)
     {
         XPending(xdisplay);
-        init();
+        
         Draw();
 
         eglSwapBuffers(display, surface);
         usleep(1000);
-
-        deleteShaderProgram(program);
     }
-
+    deleteShaderProgram(program);
 }
 
 void init()
