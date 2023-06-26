@@ -1,3 +1,5 @@
+# GL関数
+
 glCreateShader	シェーダオブジェクトの作成 ●
 
 glCreateProgram
@@ -6,6 +8,8 @@ glShaderSource	シェーダソースの指定 ●
 glCompileShader	シェーダソースをコンパイル ●
 glGetShaderiv	シェーダの情報を取得 ●
 glGetShaderInfoLog	シェーダのコンパイルエラーログを取得 ●
+
+
 ## glDeleteShader
 ```
 void glDeleteShader(	GLuint shader);
