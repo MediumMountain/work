@@ -137,6 +137,8 @@
 http://wisdom.sakura.ne.jp/system/opengl/index.html
 https://www.entis.jp/gls/sample/CubeTest/CubeTest.html
 
+https://www.oit.ac.jp/is/L231/pukiwiki/?%E6%84%9F%E8%A6%9A%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E7%A0%94%E7%A9%B6%E5%AE%A4/OpenGL
+
 ## EGL
 https://qiita.com/y-tsutsu/items/1e88212b8532fc693c3c
 

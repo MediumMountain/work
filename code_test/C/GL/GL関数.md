@@ -294,3 +294,23 @@ glViewport	画面位置とサイズをピクセル単位で指定 ◎
 
 glUniform1f	シェーダのユニフォーム変数に値を設定 ◎
 glDrawElements	頂点インデックスを使って描画 
+
+
+
+
+## REFERENCE
+http://web.wakayama-u.ac.jp/~wuhy/GSS/02.html  
+http://wisdom.sakura.ne.jp/system/opengl/index.html  
+https://tokoik.github.io/opengl/libglut.html  
+
+https://opengles-book.com/es2/index.html
+
+OpenGLの使い方  
+https://qiita.com/sugawara/items/800d81211d726aeb1412
+
+OpenGL ES2.0 入門 基礎編  
+https://qiita.com/kazoo/items/7d4550e18e128e1124b3
+
+Raspberry Pi で OpenGL ES2  
+https://www.mztn.org/
+https://www.mztn.org/rpi/rpi07.html

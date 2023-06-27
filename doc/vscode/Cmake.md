@@ -77,3 +77,8 @@ https://izadori.net/cmake_1/
 
 make
 https://qiita.com/mizcii/items/cfbd2aa17f6b7517c37f
+
+
+
+Ｃ言語のビルド  
+https://postd.cc/how-to-c-in-2016-1/
