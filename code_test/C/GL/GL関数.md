@@ -1,13 +1,68 @@
 # GL関数
 
-glCreateShader	シェーダオブジェクトの作成 ●
+## glCreateShader	
+```
+GLuint glCreateShader(	GLenum shaderType);
+```
 
-glCreateProgram
+- シェーダオブジェクトの作成
+- 作成するシェーダの種類を指定します。 次のいずれかである必要があります。
+	1. GL_COMPUTE_SHADER, 
+	1. GL_VERTEX_SHADER, 
+	1. GL_TESS_CONTROL_SHADER, 
+	1. GL_TESS_EVALUATION_SHADER, 
+	1. GL_GEOMETRY_SHADER,
+	1. GL_FRAGMENT_SHADER.
 
-glShaderSource	シェーダソースの指定 ●
-glCompileShader	シェーダソースをコンパイル ●
-glGetShaderiv	シェーダの情報を取得 ●
-glGetShaderInfoLog	シェーダのコンパイルエラーログを取得 ●
+```
+glCreateShader は空のシェーダ オブジェクトを作成し、それを参照できるゼロ以外の値を返します。 シェーダ オブジェクトは、シェーダを定義するソース コード文字列を維持するために使用されます。 shaderType は作成されるシェーダのタイプを示します。 5 種類のシェーダがサポートされています。 GL_COMPUTE_SHADER タイプのシェーダーは、プログラマブル コンピューティング プロセッサ上で実行することを目的としたシェーダーです。 GL_VERTEX_SHADER タイプのシェーダは、プログラマブル頂点プロセッサ上で実行することを目的としたシェーダです。 GL_TESS_CONTROL_SHADER タイプのシェーダーは、制御ステージのプログラマブル テッセレーション プロセッサ上で実行することを目的としたシェーダーです。 GL_TESS_EVALUATION_SHADER タイプのシェーダーは、評価段階でプログラマブル テッセレーション プロセッサ上で実行することを目的としたシェーダーです。 GL_GEOMETRY_SHADER タイプのシェーダは、プログラマブル ジオメトリ プロセッサ上で実行することを目的としたシェーダです。 GL_FRAGMENT_SHADER タイプのシェーダは、プログラマブル フラグメント プロセッサ上で実行することを目的としたシェーダです。
+
+
+バッファーオブジェクトやテクスチャオブジェクトと同様に、シェーダーオブジェクトの名前空間は、サーバー側が同じアドレス空間でコンテキストを共有している限り、コンテキストのセット全体で共有できます。 名前空間がコンテキスト全体で共有される場合、関連するオブジェクトとそれらに付随するデータも共有されます。
+
+アプリケーションは、オブジェクトが異なる実行スレッドからアクセスされたときに、全ての API 呼び出しを同期呼び出しに変換する責任があります。
+
+GL_COMPUTE_SHADER は、GLバージョンが4.3以上の場合にのみ使用できます。
+```
+
+## glCreateProgram
+
+## glShaderSource	
+```
+void glShaderSource(	GLuint shader,
+ 	GLsizei count,
+ 	const GLchar **string,
+ 	const GLint *length);
+```
+
+- シェーダソースの指定
+
+
+```
+glShaderSource は、シェーダー内のソース コードを、string で指定された文字列の配列内のソース コードに設定します。 以前にシェーダー オブジェクトに保存されていたソース コードは完全に置き換えられます。 配列内の文字列の数は count で指定されます。 長さが NULL の場合、各文字列は NULL で終了しているとみなされます。 length が NULL 以外の値の場合、string の対応する各要素の文字列長を含む配列を指します。 長さ配列の各要素には、対応する文字列の長さ (NULL 文字は文字列長の一部としてカウントされません)、または文字列が NULL で終了していることを示す 0 未満の値が含まれる場合があります。 現時点では、ソース コード文字列のスキャンや解析は行われません。 それらは指定されたシェーダ オブジェクトにコピーされるだけです。
+
+ノート
+OpenGL は、glShaderSource が呼び出されたときにシェーダー ソース コード文字列をコピーするため、アプリケーションは関数が返された直後にソース コード文字列のコピーを解放する可能性があります。
+
+エラー
+GL_INVALID_VALUE は、シェーダが OpenGL によって生成された値ではない場合に生成されます。
+
+GL_INVALID_OPERATION は、シェーダがシェーダ オブジェクトでない場合に生成されます。
+
+count が 0 未満の場合、GL_INVALID_VALUE が生成されます
+```
+
+
+## glCompileShader	シェーダソースをコンパイル
+
+
+
+
+## glGetShaderiv	シェーダの情報を取得
+
+
+
+## glGetShaderInfoLog	シェーダのコンパイルエラーログを取得
 
 
 ## glDeleteShader
@@ -187,6 +242,8 @@ void glUniform4fv(GLint location, GLsizei count, const GLfloat* v)
 
 glGenBuffers	バッファオブジェクトを作成 ○
 glBufferData	バッファオブジェクトにデータを転送 ○
+
+
 ## glVertexAttribPointer
 
 ```
