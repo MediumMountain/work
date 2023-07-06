@@ -16,3 +16,14 @@ EGLSurface eglCreateWindowSurface(	EGLDisplay display,
 eglCreateWindowSurface は、画面上の EGL ウィンドウ サーフェスを作成し、そのハンドルを返します。   
 eglCreateWindowSurface の動作は、表示が属することを許可されるプラットフォームのセットと、native_window の実際のタイプが実装固有であることを除いて、eglCreatePlatformWindowSurface の動作と同じです。  
 ```
+
+
+
+## eglCreatePlatformWindowSurface
+```
+EGLSurface eglCreatePlatformWindowSurface(	EGLDisplay display,
+ 	EGLConfig config,
+ 	void * native_window,
+ 	EGLAttrib const * attrib_list);
+```
+

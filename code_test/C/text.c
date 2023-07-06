@@ -2,11 +2,15 @@
 #include <stdio.h>
 int main(void)
 {
-	char text[] = {"aaaa\n"
+	int size=0;
+	char text[] = {"aaaa    \n"
 		"bbbb\n"
 		"cccc"};
 
 	printf("%s\n", text);
-	printf("%s\n", text);
+
+	size = sizeof(text);
+
+	printf("size = %d\n", size);
 	return 0;
 }

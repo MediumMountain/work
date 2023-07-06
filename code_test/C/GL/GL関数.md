@@ -52,6 +52,14 @@ GL_INVALID_OPERATION は、シェーダがシェーダ オブジェクトでな�
 count が 0 未満の場合、GL_INVALID_VALUE が生成されます
 ```
 
+- 2023/07/05
+	- glGetShaderivがGL_FALSE
+		- 懸念点
+		1. shaderの書き方
+			- テストプログラムはC++、実機用ソースはC++ソースだけど中身はCの記述(extern C)
+		1. 第4引数がNULL
+			- lengthにするべき？もしくは行末が正しくない？
+
 
 ## glCompileShader	シェーダソースをコンパイル
 
