@@ -61,16 +61,92 @@ count が 0 未満の場合、GL_INVALID_VALUE が生成されます
 			- lengthにするべき？もしくは行末が正しくない？
 
 
-## glCompileShader	シェーダソースをコンパイル
+## glCompileShader	
+```
+void glCompileShader(	GLuint shader);
+```
+
+- コンパイルするシェーダーオブジェクトを指定(shader)
+
+```
+glCompileShader は、 shader に指定されたシェーダーオブジェクトに保存されているソースコード文字列をコンパイルします。
+
+コンパイルステータスは、シェーダーオブジェクトの状態の一部として保存されます。 この値は、シェーダーにエラーが無くコンパイルされ使用準備ができている場合は GL_TRUE、それ以外は GL_FALSE に設定されます。 これは、glGetShader を引数 shader と GL_COMPILE_STATUS を使用して呼び出すことで照会できます。
+
+シェーダーのコンパイルは、OpenGL Shading Language Specificationで指定されているいくつかの理由で失敗する可能性があります。 コンパイル成功の可否に依らず、glGetShaderInfoLog を呼び出すことでシェーダーオブジェクトの情報ログからコンパイルに関する情報を取得できます。
+
+ERROR
+GL_INVALID_VALUE は、シェーダが OpenGL によって生成された値ではない場合に生成されます。
+GL_INVALID_OPERATION は、シェーダがシェーダ オブジェクトでない場合に生成されます。
+```
+
+## glGetShaderInfoLog	
+
+```
+void glGetShaderInfoLog(	GLuint shader,
+ 	GLsizei maxLength,
+ 	GLsizei *length,
+ 	GLchar *infoLog);
+```
+- シェーダのコンパイルエラーログを取得
+
+```
+glGetShaderInfoLog は、指定されたシェーダーオブジェクトの情報ログを返します。 シェーダーオブジェクトの情報ログは、シェーダーのコンパイル時に更新されます。 返される文字列はnull終端になっています。
+
+glGetShaderInfoLog は、最大で maxLength 文字まで、可能な限り多くの情報ログを infoLog に返します。 null終端文字を除く実際に返される文字数は、length で指定されます。 返される文字列の長さが不要な場合は、引数 length に NULL を渡すことができます。 返された情報ログを保存するために必要なバッファーサイズは、glGetShader を GL_INFO_LOG_LENGTH で呼び出すことで取得できます。
+
+シェーダーオブジェクトの情報ログは、診断メッセージ、警告メッセージ、および最後のコンパイル操作に関するその他の情報を含む文字列です。 シェーダーオブジェクトが作成されると、その情報ログは長さ0の文字列になります。
+
+Notes
+シェーダーオブジェクトの情報ログは、コンパイルプロセスに関する情報を伝達するためのOpenGL実装者の主要なメカニズムです。 従って、情報ログはコンパイルが成功した場合でも開発プロセス中にアプリケーション開発者に役立ちます。 アプリケーション開発者は、異なるOpenGL実装が同一の情報ログを生成することを期待すべきではありません。
+
+ERROR
+GL_INVALID_VALUE は、シェーダが OpenGL によって生成された値ではない場合に生成されます。
+GL_INVALID_OPERATION は、シェーダがシェーダ オブジェクトでない場合に生成されます。
+maxLength が 0 未満の場合、GL_INVALID_VALUE が生成されます。
+
+```
 
 
+## glGetShaderiv  
+```
+void glGetShaderiv(	GLuint shader,
+ 	GLenum pname,
+ 	GLint *params);
+```
+- シェーダの情報を取得
 
 
-## glGetShaderiv	シェーダの情報を取得
+```
+glGetShaderiv は、特定のシェーダ オブジェクトのパラメータの値を params で返します。 次のパラメータが定義されています。
 
+GL_SHADER_TYPE
+params は、シェーダが頂点シェーダ オブジェクトの場合は GL_VERTEX_SHADER を返し、シェーダがフラグメント シェーダ オブジェクトの場合は GL_FRAGMENT_SHADER を返します。
 
+GL_DELETE_STATUS
+params は、シェーダに現在削除のフラグが立てられている場合は GL_TRUE を返し、それ以外の場合は GL_FALSE を返します。
 
-## glGetShaderInfoLog	シェーダのコンパイルエラーログを取得
+GL_COMPILE_STATUS
+シェーダ コンパイラをサポートする実装の場合、params は、シェーダの最後のコンパイル操作が成功した場合は GL_TRUE を返し、それ以外の場合は GL_FALSE を返します。
+
+GL_INFO_LOG_LENGTH
+シェーダ コンパイラをサポートする実装の場合、params は、null 終了文字を含むシェーダの情報ログの文字数 (つまり、情報ログを格納するために必要な文字バッファのサイズ) を返します。 シェーダに情報ログがない場合は、値 0 が返されます。
+
+GL_SHADER_SOURCE_LENGTH
+シェーダ コンパイラをサポートする実装の場合、params は、null 終端文字を含む、シェーダのシェーダ ソースを構成するソース文字列の連結の長さを返します。 (つまり、シェーダ ソースを保存するために必要なキャラクタ バッファのサイズ)。 ソースコードが存在しない場合は0を返します。
+
+NOTE
+シェーダー コンパイラのサポートはオプションであるため、使用前に引数 GL_SHADER_COMPILER を指定して glGet を呼び出してクエリする必要があります。 glShaderSource、glCompileShader、glGetShaderPrecisionFormat、および glReleaseShaderCompiler はそれぞれ、GL_COMPILE_STATUS、GL_INFO_LOG_LENGTH、および GL_SHADER_SOURCE_LENGTH の glGetShaderiv クエリと同様に、シェーダ コンパイラをサポートしない実装で GL_INVALID_OPERATION を生成します。 このような実装では、代わりに、コンパイル済みのシェーダー バイナリを提供するための glShaderBinary の代替手段が提供されます。
+
+エラーが発生した場合、params の内容は変更されません。
+
+ERROR
+pname が受け入れられる値ではない場合、GL_INVALID_ENUM が生成されます。
+GL_INVALID_VALUE は、シェーダが OpenGL によって生成された値ではない場合に生成されます。
+pname が GL_COMPILE_STATUS、GL_INFO_LOG_LENGTH、または GL_SHADER_SOURCE_LENGTH の場合、GL_INVALID_OPERATION が生成されますが、シェーダー コンパイラはサポートされていません。
+GL_INVALID_OPERATION は、シェーダがシェーダ オブジェクトを参照していない場合に生成されます。
+
+```
 
 
 ## glDeleteShader
@@ -248,9 +324,6 @@ void glUniform4fv(GLint location, GLsizei count, const GLfloat* v)
 ## glUniform2f, glUniform2fv
 
 
-glGenBuffers	バッファオブジェクトを作成 ○
-glBufferData	バッファオブジェクトにデータを転送 ○
-
 
 ## glVertexAttribPointer
 
@@ -354,7 +427,7 @@ void glEnableVertexAttribArray(GLuint index)
 
 
 glUseProgram	描画に使用するプログラムを指定 ◎
-glBindBuffer	バッファオブジェクトをシェーダのデータとして指定 ◎
+
 glViewport	画面位置とサイズをピクセル単位で指定 ◎
 
 glUniform1f	シェーダのユニフォーム変数に値を設定 ◎
