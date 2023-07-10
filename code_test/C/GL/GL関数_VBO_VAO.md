@@ -1,5 +1,5 @@
 # VBO（VBO＝Vertex Buffer Object）
-- VBOは描画に必要なデータ（頂点座標、色など）を格納するバッファ
+- VBOは描画に必要なデータ（頂点座標、色、法線、テクスチャ座標など）を格納するバッファ
 - VBOは以下のような手順で設定を行う。
     1. glGenBuffers関数でVBO作成→glBindBuffer関数でbind
     1. glBufferData関数で作成したVBOにデータを格納
@@ -58,7 +58,13 @@ void glBufferData(GLenum target, GLsizeiptr size, const GLvoid *data, GLenum usa
 
 
 # VAO（Vertex Array Object）
-- VBOをまとめる役割
+- VBOをまとめるディスクリプタ―（Descriptor）。「ディスクリプタ―」とは、「GPUに送ったデータをシェーダーで使用するための仕様書」のようなもの
+
+- VAOには、2つの機能がある。
+1. バッファオブジェクトの属性をまとめる機能
+　複数のVBOの頂点属性(位置/色/法線など)を一つのVAOへまとめる役割をもつ。頂点属性だけでなくインデックスバッファや、インダイレクトバッファ等のバッファオブジェクトもまとめることができる。
+2. シェーダー側への橋渡しであるインターフェイス的な機能
+　シェーダー側でC++側で生成した頂点データの処理を行うとき、どれが頂点の位置で色で法線なのかわかる必要がある。VAOはこれを解決する橋渡し的な機能を持っている。
 
 ## glGenVertexArrays
 
@@ -77,3 +83,10 @@ void glBindVertexArray(GLuint array)
 //例：glBindVertexArray(vao);
 ```
 
+
+
+# 描画手順
+1. 頂点データを準備
+1. VBOに頂点データを格納
+1. VAOにVBOをまとめる
+1. シェーダーを適用し、ドローコールで描画
