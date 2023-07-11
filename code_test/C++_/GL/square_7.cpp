@@ -127,28 +127,62 @@ int initializeEGL(Display *xdisp, Window &xwindow, EGLDisplay &display, EGLConte
 
 void mainloop(Display *xdisplay, EGLDisplay display, EGLSurface surface)
 {
-    const char *vshader = R"(
-        attribute vec4 vPosition;
-        attribute vec3 aColor;
-        varying vec3 vColor;
-        void main() {
-            gl_Position = vPosition;
-            vColor = aColor;
-        }
-    )";
+	const char* vshader =
+		"#version 300 es\n"
+		"layout(location = 0) in vec3 position;\n"
+		"layout(location = 1) in vec3 color;\n"
+		"out vec3 outColor;\n"
+		"void main(void) {\n"
+			"outColor = color;\n"
+			"gl_Position = vec4(position, 1.0f);\n"
+		"}\n";
 
-    const char *fshader = R"(
-        precision mediump float;
-        varying vec3 vColor;
-        void main() {
-            gl_FragColor = vec4(vColor, 1.0);
-        }
-    )";
+
+	const char* fshader =
+		"#version 300 es\n"
+        "precision mediump float;"
+		"in vec3 outColor;\n"
+		"out vec4 outFragmentColor;\n"
+		"void main() {\n"
+			"outFragmentColor = vec4(outColor, 1.0f); \n"
+		"}\n";
+
+
+//         #version 300 es        
+// precision mediump float;
+// in vec4   TriangleColor;
+// out vec4 FragColor;    
+// void main() {          
+// FragColor = TriangleColor;
+// };
+
+    // const char *vshader = R"(
+    //     attribute vec4 vPosition;
+    //     attribute vec3 aColor;
+    //     varying vec3 vColor;
+    //     void main() {
+    //         gl_Position = vPosition;
+    //         vColor = aColor;
+    //     }
+    // )";
+
+    // const char *fshader = R"(
+    //     precision mediump float;
+    //     varying vec3 vColor;
+    //     void main() {
+    //         gl_FragColor = vec4(vColor, 1.0);
+    //     }
+    // )";
 
 	GLfloat points[] = { 0.5f, 0.5f, 0.0f, 
 				 0.5f, -0.5f, 0.0f, 
 				-0.5f, 0.5f,  0.0f,
-				-0.5f, -0.5f, 0.0f};
+				-0.5f, -0.5f, 0.0f,
+
+                0.3f, 0.8f, 0.0f,//四角形2つ目
+    			0.5f, -0.3f, 0.0f,
+	    		-0.7f, 0.5f, 0.0f,
+		    	-0.2f, -0.2f, 0.0f};
 
 	// GLfloat points[] = { 1.0f, 1.0f, 0.0f, 
 	// 			 1.0f, -1.0f, 0.0f, 
@@ -158,7 +192,12 @@ void mainloop(Display *xdisplay, EGLDisplay display, EGLSurface surface)
 	GLfloat colors[] = { 0.5f, 0.0f, 0.3f,
 				 0.5f, 0.8f, 0.0f,
 				 1.0f, 0.0f, 1.0f,
-				 1.0f, 0.8f, 1.0f};
+				 1.0f, 0.8f, 1.0f,
+
+                0.5f, 0.0f, 1.0f,//四角形2つ目
+                0.5f, 0.3f, 0.5f,
+                1.0f, 0.0f, 1.0f,
+                0.2f, 0.1f, 1.0f };
 
     // GLfloat colors[] = { 1.0f, 1.0f, 1.0f,
     //             1.0f, 1.0f, 1.0f,
@@ -166,18 +205,19 @@ void mainloop(Display *xdisplay, EGLDisplay display, EGLSurface surface)
     //             1.0f, 1.0f, 1.0f};
 
 
-   GLushort indices[] = { 0, 1, 2, 0, 2, 3 };
-
-    printf("vshader = \n");
-    printf("vshader = %s\n", vshader);
-
-    std::cout << "vshader = " << std::endl;
-    std::cout << "fshader = " << fshader << std::endl;
 
     GLuint program = createProgram(vshader, fshader);
 
+    // GLint gvPositionHandle_1 = glGetAttribLocation(program, "vPosition");
+    // GLint gvPositionHandle_2 = glGetAttribLocation(program, "aColor");
+
+    // std::cout << "gvPositionHandle_1 = " << gvPositionHandle_1 << std::endl;
+    // std::cout << "gvPositionHandle_2 = " << gvPositionHandle_2 << std::endl;
+
     GLuint vao, vertex_vbo, color_vbo;
 
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
 
 	// 頂点座標のVBOを作成	
 	glGenBuffers(1, &vertex_vbo); //バッファを作成
@@ -188,16 +228,6 @@ void mainloop(Display *xdisplay, EGLDisplay display, EGLSurface surface)
 	glBindBuffer(GL_ARRAY_BUFFER, color_vbo); //以下よりvertex_vboでバインドされているバッファが処理される
 	glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW); //実データを格納
 
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
-
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vertex_vbo);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-
-	glEnableVertexAttribArray(1);
-    glBindBuffer(GL_ARRAY_BUFFER, color_vbo);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
     // glBindBuffer(GL_ARRAY_BUFFER, 0);
     // glBindVertexArray(0);
@@ -207,21 +237,26 @@ void mainloop(Display *xdisplay, EGLDisplay display, EGLSurface surface)
     {
         XPending(xdisplay);
 
-        const GLfloat matrix[] = {
-        static_cast<GLfloat>(cos(degree2radian(degree))), 0.0f, static_cast<GLfloat>(sin(degree2radian(degree))), 0.0f,
-        0.0f, 1.0f, 0.0f, 0.0f,
-        static_cast<GLfloat>(-sin(degree2radian(degree))), 0.0f, static_cast<GLfloat>(cos(degree2radian(degree))), 0.0f,
-        0.0f, 0.0f, 0.0f, 1.0f};
-
         glClearColor(0.25f, 0.25f, 0.5f, 0.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
         glUseProgram(program);
-        glBindVertexArray(vao);
+
+        glEnableVertexAttribArray(0);
+        glBindBuffer(GL_ARRAY_BUFFER, vertex_vbo);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+
+        glEnableVertexAttribArray(1);
+        glBindBuffer(GL_ARRAY_BUFFER, color_vbo);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+
+        // glBindVertexArray(vao);
 
         // glDrawArrays(GL_TRIANGLES, 0, 3);
+
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
 
         eglSwapBuffers(display, surface);
         // degree = (degree + 1) % 360;
@@ -235,7 +270,9 @@ void mainloop(Display *xdisplay, EGLDisplay display, EGLSurface surface)
 GLuint createProgram(const char *vshader, const char *fshader)
 {
     GLuint vertexShader = loadShader(GL_VERTEX_SHADER, vshader);
+    std::cout << "vshader = " << vshader << std::endl;
     GLuint fragShader = loadShader(GL_FRAGMENT_SHADER, fshader);
+    std::cout << "fshader = " << fshader << std::endl;
     GLuint program = glCreateProgram();
     glAttachShader(program, vertexShader);
     glAttachShader(program, fragShader);
