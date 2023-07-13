@@ -1,5 +1,5 @@
 # VBO（VBO＝Vertex Buffer Object）
-- VBOは描画に必要なデータ（頂点座標、色、法線、テクスチャ座標など）を格納するバッファ
+- VBOは描画に必要な頂点情報（頂点座標、色、法線、テクスチャ座標など）を格納するバッファ
 - VBOは以下のような手順で設定を行う。
     1. glGenBuffers関数でVBO作成→glBindBuffer関数でbind
     1. glBufferData関数で作成したVBOにデータを格納
