@@ -91,6 +91,18 @@ void glGetShaderInfoLog(	GLuint shader,
 - シェーダのコンパイルエラーログを取得
 
 ```
+shader
+情報ログを照会するシェーダーオブジェクトを指定します
+
+maxLength
+返される情報ログを保存するための文字バッファのサイズを指定します。
+
+length
+infoLog に返される文字列の長さを返します（nullターミネーターを除く）。
+
+infoLog
+情報ログを返すために使用される文字の配列を指定します。
+
 glGetShaderInfoLog は、指定されたシェーダーオブジェクトの情報ログを返します。 シェーダーオブジェクトの情報ログは、シェーダーのコンパイル時に更新されます。 返される文字列はnull終端になっています。
 
 glGetShaderInfoLog は、最大で maxLength 文字まで、可能な限り多くの情報ログを infoLog に返します。 null終端文字を除く実際に返される文字数は、length で指定されます。 返される文字列の長さが不要な場合は、引数 length に NULL を渡すことができます。 返された情報ログを保存するために必要なバッファーサイズは、glGetShader を GL_INFO_LOG_LENGTH で呼び出すことで取得できます。
@@ -106,6 +118,19 @@ GL_INVALID_OPERATION は、シェーダがシェーダ オブジェクトでな�
 maxLength が 0 未満の場合、GL_INVALID_VALUE が生成されます。
 
 ```
+
+これを書くと、このように
+```
+"warning C7502: OpenGL does not allow type suffix 'f' on constant literals
+0(8) : warning C7503: OpenGL does not allow C-style casts
+0(8) : warning C7503: OpenGL does not allow C-style casts
+0(8) : warning C7503: OpenGL does not allow C-style casts
+0(12) : warning C7011: implicit cast from "float" to "vec4"
+0(13) : error C0000: syntax error, unexpected '}', expecting ',' or ';' at token "}"
+0(4) : error C1068: too much data in type constructor"
+```
+何行目がエラーなのか教えてくれる。  
+https://qiita.com/jasmingirl@github/items/135a58ff27e3c934d15c
 
 
 ## glGetShaderiv  

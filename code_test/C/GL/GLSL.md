@@ -1,3 +1,49 @@
+# GLSL バージョン
+
+||                 GLSL|     shader 内の指定||  
+|:------|:--------:|:--------:|:--------:|  
+|OpenGL ES 2.0    |1.0      |#version 100||
+|OpenGL 2.0       |1.1      |#version 110||
+|OpenGL 2.1       |1.2      |#version 120||
+|OpenGL 3.0       |1.3      |#version 130||
+|OpenGL 3.1       |1.4      |#version 140||
+|OpenGL 3.2       |1.5      |#version 150 |[core/compatibility]
+|OpenGL ES 3.0    |3.0      |#version 300 es||
+|OpenGL 3.3       |3.3      |#version 330 |[core/compatibility]
+|OpenGL 4.0       |4.0      |#version 400 |[core/compatibility]
+|OpenGL 4.1       |4.1      |#version 410 |[core/compatibility]
+|OpenGL 4.2       |4.2      |#version 420 |[core/compatibility]
+|OpenGL 4.3       |4.3      |#version 430 |[core/compatibility/es]
+
+
+- インクルードするファイル、シェーダの記述内容に注意する。
+1. OpenGL 2.0
+```
+    const char *vshader = R"(
+        attribute vec4 vPosition;
+        attribute vec2 a_texCoord;
+        varying vec2 v_texCoord;
+        uniform mediump mat4 mRotation;
+        void main() {
+            gl_Position = mRotation * vPosition;
+            v_texCoord  = a_texCoord;
+        }
+    )";
+```
+1. OpenGL ES 3.0
+```
+	const char* vshader =
+		"#version 300 es\n"
+		"layout(location = 0) in vec3 position;\n"
+		"layout(location = 1) in vec2 vuv;\n"
+        "out vec2 Flag_uv;\n"
+		"void main(void) {\n"
+            "Flag_uv  = vuv;\n"
+			"gl_Position = vec4(position, 1.0f);\n"
+		"}\n";
+```
+
+
 # GLSL文法
 
 ## 変数
