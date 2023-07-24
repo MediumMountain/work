@@ -6,3 +6,9 @@
 
     - 解決方法としては「texture2D」を「texture」に置き換えること。
     https://stackoverflow.com/questions/52665406/error-010-invalid-call-of-undeclared-identifier-texture2d?noredirect=1&lq=1
+
+
+
+
+うまくいっていない
+https://blog.csdn.net/PX1525813502/article/details/125016412
