@@ -152,6 +152,29 @@ vec4の場合、
 
 
 
+
+## Shader記述時の注意点
+- for文のループ回数を動的に出来ない。
+- if文はあまり使わない方がいいらしい (処理負荷が高い) →　ifの分岐を避ける
+    - 3項演算子
+    - stepの用法
+
+- 基本bit演算は使えない。将来のために予約はされている。拡張を使えば使える。
+- 配列も基本的には使わない方がいい
+
+
+### 行列は転置された状態になる
+- 定義する上で行に見えるところはカラム（列）になる。　→　転置行列を定義している
+
+
+
+
 ## REFERENCE
 
 https://gist.github.com/gyohk/abf13dbcb5be750b3b021752b280ccd3
+
+GLSL : don't use "if"  
+https://note.com/nobuhirosaijo/n/n606a3f5d8e89
+
+【GLSL TIPS】行列の宣言と計算の注意点  
+https://blog.narumium.net/2020/05/27/%e3%80%90glsl-tips%e3%80%91%e8%a1%8c%e5%88%97%e3%81%ae%e5%ae%a3%e8%a8%80%e3%81%a8%e8%a8%88%e7%ae%97%e3%81%ae%e6%b3%a8%e6%84%8f%e7%82%b9/
