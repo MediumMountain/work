@@ -32,6 +32,10 @@ def lbutton_up(event):
     y1, y2 = y2, y1
   # オリジナルサイズの画像からトリミング
   screenshot_crop = screenshot.crop((x1*width_dif, y1*height_dif, x2*width_dif, y2*height_dif)) 
+
+
+  pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
   # 文字認識
   str = pytesseract.image_to_string(screenshot_crop, lang="jpn+jpn_vert")
   # クリップボードにコピー
