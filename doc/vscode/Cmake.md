@@ -14,27 +14,48 @@ project1/
 
 
 ## CMakeLists.txt の設定
+- ビルド対象のディレクトリーに CMakeLists.txt を配置することで cmake コマンドが対象だと認識してくれるようになる。
+
+- 最低限必要な設定は以下  
+
 
 ```
 cmake_minimum_required(VERSION 3.1)
-project(cmake_test_1 CXX)
-aadd_executable(cmake_test test1.cpp)
+add_executable(cmake_test test1.cpp)
+target_link_libraries
 ```
 
 
 - cmake_minimum_required()
   - 1行目ではこのプロジェクトで必要とするCMakeのバージョンを指定
+  - CMakeLists.txt に記載されている内容を実行するにあたって必要な CMake のバージョンを明示する
 
-- project()
-  - 2行目ではプロジェクト名を指定
+
+
 
 - add_executable()
   - ターゲット名が生成する実行ファイルの名前に相当
   - 依存ファイルにはビルドに必要なソースファイルなどを指定
+  - 実行ファイル名と、そのビルドに必要な c / cpp ファイルの指定
+  - ヘッダーファイルはここに指定しなくても、更新すると勝手に認識してリビルド対象にしてくれる
+
+
+- target_link_libraries
+  - リンクするライブラリーの指定
+  - gcc に -lfoo と指定していた場合、 foo とだけ書く
+
+
+### 最低げんではない？
+
+- project(cmake_test_1 CXX)
+  - プロジェクト名を指定
+
 
 
   ## make用のMakefileを生成
   - buildディレクトリに移動したあとでcmakeを実行
+
+  
 
 
 
@@ -66,6 +87,33 @@ $ make examples #ライブラリを利用したサンプルをビルドしてバ
 ## Makefileの基本構造
 - Makefileの中で用いる変数(マクロ)の設定
 - ルールの設定
+
+
+
+## ビルド対象の分割
+- 複数のビルド対象がある場合、ひとつの CMakeLists.txt でアレコレやろうとするとこんがらがるので、ディレクトリーを切ってわける。
+
+```
+/path/to/your/project/
+CMakeLists.txt
+commandA/
+CMakeLists.txt
+src/
+commandB/
+CMakeLists.txt
+src/
+```
+
+- トップの CMakeLists.txt で add_subdirectory を使って下のディレクトリーをビルド対象に加える。
+
+```
+# add_subdirectory でビルド対象追加
+cmake_minimum_required(VERSION 2.8)
+
+add_subdirectory(commandA)
+add_subdirectory(commandB)
+```
+
 
 
 # REFERENCE
