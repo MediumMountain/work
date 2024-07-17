@@ -51,11 +51,17 @@ target_link_libraries
   - gcc に -lfoo と指定していた場合、 foo とだけ書く
 
 
+
+- target_include_directories
+  - インクルードディレクトリの設定
+
 ### 最低げんではない？
 
 - project(cmake_test_1 CXX)
   - プロジェクト名を指定
 
+
+- find_package
 
 
   ## make用のMakefileを生成
