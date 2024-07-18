@@ -19,6 +19,20 @@
 
 cmake_minimum_required(VERSION 3.5)
 
-add_executable
+# プロジェクト名、バージョン
+project(test CXX)
 
-target_link_libraries
+set(test_SRC
+   examples/sync_publish.cpp
+#  src/my_class.cpp
+#  src/my_main.cpp
+)
+
+add_executable(main 
+    ${test_SRC}
+)
+
+# target_link_libraries
+
+target_include_directories(test PUBLIC include/mqtt
+)
